@@ -51,6 +51,29 @@ function addEmployee(name, department, salary) {
 console.log(addEmployee());
 console.log(employees);
 
+// update Department
+console.log(
+  "=========================Update Department=============================",
+);
+
+function updateDepartment(id) {
+  const index = employees.findIndex((employee) => employee.id === id);
+  if (index !== -1) {
+    let updateData = employees.map((employee) => {
+      if (employee.id === id) {
+        return { ...employee, department: "Sales and Marketing" };
+      } else {
+        return employee;
+      }
+    });
+    return updateData;
+  } else {
+    return "Not Found";
+  }
+}
+let updateData = updateDepartment(4);
+console.log(updateData);
+
 // searchEmployee
 console.log(
   "===================searchEmployee================================",
@@ -67,31 +90,35 @@ console.log(
 );
 
 function filterByDepartment(department) {
-  return employees.filter((employee) => employee.department.includes("HR"));
+  return employees.filter((employee) =>
+    employee.department.includes(department),
+  );
 }
-console.log(filterByDepartment());
+console.log(filterByDepartment("HR"));
 
 // increaseSalary(percent)
 console.log("======================increaseSalary(percent)===============");
 function increaseSalary(percent) {
-  for (let i = 0; i < employees.length; i++) {
-    employees[i].salary =
-      employees[i].salary + (employees[i].salary * percent) / 100;
-  }
+  return employees.map((employee) => {
+    return {
+      ...employee,
+      salary: employee.salary + (employee.salary * percent) / 100,
+    };
+  });
 }
-increaseSalary(10);
-console.log(employees);
+
+console.log(increaseSalary(10));
 
 // calculateTotalSalary()
 console.log(
   "============================calculateTotalSalary()========================",
 );
 
-let totalSalary = 0;
 function calculateTotalSalary() {
-  for (let i = 0; i < employees.length; i++) {
-    totalSalary += employees[i].salary;
-  }
+  let totalSalary = employees.reduce(
+    (total, employee) => total + employee.salary,
+    0,
+  );
   return totalSalary;
 }
 console.log(calculateTotalSalary());
@@ -101,16 +128,12 @@ console.log(
   "====================highestSalaryEmployee()============================",
 );
 
-let highest = employees[0];
-function highestSalaryEmployee() {
-  for (let i = 0; i < employees.length; i++) {
-    if (employees[i].salary > highest.salary) {
-      highest = employees[i];
-    }
-  }
-  return highest;
-}
-console.log(highestSalaryEmployee());
+let highestEmployee = employees[0];
+
+employees.forEach((employee) => {
+  if (highestEmployee.salary < employee.salary) highestEmployee = employee;
+});
+console.log(highestEmployee);
 
 // getActiveEmployees()
 console.log(

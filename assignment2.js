@@ -1,4 +1,4 @@
-const students = [
+let students = [
   { id: 1, name: "Aung Aung", email: "aung@gmail.com", marks: 80 },
   { id: 2, name: "Su Su", email: "susu@gmail.com", marks: 45 },
   { id: 3, name: "Kyaw Kyaw", email: "kyaw@gmail.com", marks: 90 },
@@ -20,6 +20,28 @@ function addStudentname(email, marks) {
 }
 console.log(addStudentname());
 console.log(students);
+
+// uptategmail
+console.log(
+  "=========================Update Email============================",
+);
+function updateEmail(id) {
+  const index = students.findIndex((student) => student.id === id);
+  if (index !== -1) {
+    let updateData = students.map((student) => {
+      if (student.id === id) {
+        return { ...student, email: "John14424@gmail.com" };
+      } else {
+        return student;
+      }
+    });
+    return updateData;
+  } else {
+    return "Not Found";
+  }
+}
+let updateData = updateEmail(5);
+console.log(updateData);
 
 // search Student
 console.log(
@@ -47,10 +69,11 @@ console.log(
 );
 
 function calculateAverateMarks() {
-  let totalMarks = 0;
-  for (i = 0; i < students.length; i++) {
-    totalMarks += students[i].marks;
-  }
+  let totalMarks = students.reduce(
+    (total, student) => total + student.marks,
+    0,
+  );
+  console.log(totalMarks);
   let average = Math.round(totalMarks / students.length);
   return average;
 }

@@ -1,4 +1,4 @@
-const todos = [
+let todos = [
   { id: 1, title: "Learn JavaScript", completed: false, priority: "High" },
   { id: 2, title: "Build Small Project", completed: true, priority: "Medium" },
   { id: 3, title: "Practice Array Methods", completed: false, priority: "Low" },
@@ -31,6 +31,29 @@ function searchTodo(word) {
 }
 
 console.log(searchTodo("Learn"));
+
+// // update todo
+console.log(
+  "======================Update Todo================================",
+);
+
+function updateTodo(id) {
+  const index = todos.findIndex((todo) => todo.id === id);
+  if (index !== -1) {
+    let updateData = todos.map((todo) => {
+      if (todo.id === id) {
+        return { ...todo, completed: true };
+      } else {
+        return todo;
+      }
+    });
+    return updateData;
+  } else {
+    return "Not Found";
+  }
+}
+let updateData = updateTodo(10);
+console.log(updateData);
 
 // completedTodos?
 console.log("========completed Todo=========");
